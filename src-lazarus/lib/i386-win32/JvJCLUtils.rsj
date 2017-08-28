@@ -1,0 +1,5 @@
+{"version":1,"strings":[
+{"hash":27271476,"name":"jvjclutils.rsepropertynotexists","sourcebytes":[80,114,111,112,101,114,116,121,32,34,37,115,34,32,100,111,101,115,32,110,111,116,32,101,120,105,115,116],"value":"Property \"%s\" does not exist"},
+{"hash":15134229,"name":"jvjclutils.rseinvalidpropertytype","sourcebytes":[80,114,111,112,101,114,116,121,32,34,37,115,34,32,104,97,115,32,105,110,118,97,108,105,100,32,116,121,112,101],"value":"Property \"%s\" has invalid type"},
+{"hash":261469952,"name":"jvjclutils.rsepivotlessthanzero","sourcebytes":[74,118,74,67,76,85,116,105,108,115,46,77,97,107,101,89,101,97,114,52,68,105,103,105,116,58,32,80,105,118,111,116,32,60,32,48],"value":"JvJCLUtils.MakeYear4Digit: Pivot < 0"}
+]}
