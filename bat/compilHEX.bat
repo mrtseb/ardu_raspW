@@ -17,6 +17,7 @@ SET dir=%prefix%\hardware\arduino\avr
 SET ldir=%prefix%\libraries
 SET ts=%ldir%\TS
 SET ldir2=%prefix%\hardware\arduino\avr\libraries
+echo %time%
 DEL prod\%projet%.*
 echo #include "Arduino.h"%NL%  > prod\%projet%.cpp
 echo "PATCH DE ./ino/%projet%.ino vers prod\%projet%.cpp"
@@ -29,3 +30,4 @@ ECHO "Edition des liens"
 %AVR_GCC% -w -Os -g -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p -o "prod\%projet%.elf" "prod\%projet%.o" "core\core.a" "-Lcore" -lm
 echo "Génération du fichier HEX"
 %AVR_OBJCOPY% -O ihex -R .eeprom prod\%projet%.elf prod\%projet%.hex
+echo %time%

@@ -11,7 +11,7 @@ SET ldir=%prefix%\libraries
 SET ts=%ldir%\TS
 SET ldir2=%prefix%\hardware\arduino\avr\libraries
 
-
+ECHO %time%
 DEL %prefix%\core\*.* /q
 
 ECHO "GENERATION DE WIRE_PULSE ASM"
@@ -63,6 +63,6 @@ echo "Génération de WIRE"
 %AVR_CPP% -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10801 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR -I%dir%/cores/arduino -I%dir%/variants/standard -I%ldir2%/Wire -I%ldir2%/Wire/utility/ -o core/Wire.o %ldir2%/Wire/Wire.cpp
 ECHO "ASSEMBLAGE DE LA BIBLIOTHEQUE"
 %AVR_AR% rcsv core/core.a core/*.o
-
+echo %time%
 :eof
 

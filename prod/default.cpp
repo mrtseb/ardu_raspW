@@ -1,67 +1,76 @@
 #include "Arduino.h"
   
-#include <Wire.h>
-#include <SoftwareSerial.h>
+String dimmer="";
+long port =0;
+int a0,a1,a2,a3;
 
-#include "TSSerial.h"
-#include "rgb_lcd.h"
-#include "DHT.h"
-
-#include "Arduino.h"
-void setup();
-void loop();
-void _delay(float seconds);
-void _loop();
-#line 9
-double temp;
-double hum;
-double sol;
-double capteur;
-DHT dht(4, 11);
-rgb_lcd rgbLcd;
-TSSerial bt;
-
-void setup(){
-    rgbLcd.begin(16,2);
-
-    pinMode(0,INPUT);
-    pinMode(2,OUTPUT);
+long stringToLong(String s)
+{
+   char arr[12];
+   s.toCharArray(arr, sizeof(arr));
+   return atol(arr);
 }
 
-void loop(){
+char* stringToArr(String s)
+{
+   char arr[12];
+   s.toCharArray(arr, sizeof(arr));
+   return arr;
+}
 
-    temp = dht.readTemperature();
-    hum = dht.readHumidity();
-    sol = analogRead(0);
-    rgbLcd.setCursor(0,0);
-    rgbLcd.print(String("T:")+dht.readTemperature()+String(" H:")+dht.readHumidity());
-    rgbLcd.setCursor(0,1);
-    rgbLcd.print(String("SOL:")+analogRead(0));
-    if(((bt.dataAvailable(5))==(1))){
-        capteur = bt.receiveVariable("C", 5);
-        if(((capteur)==(1))){
-        bt.send(5, String("TEMP")+":"+temp);}
-        if(((capteur)==(2))){
-        bt.send(5, String("HUM")+":"+hum);}
-        if(((capteur)==(3))){
-        bt.send(5, String("SOL")+":"+sol);}
+ void setup()
+ {
+  pinMode(6, OUTPUT);
+  Serial.begin(9600);
+  delay(1);
+ }
+
+ void loop()
+ {
+  while (Serial.available() > 0)
+  {
+    char data = Serial.read();
+    dimmer += data;
+    delay(1);
+
+    if (data == '-')
+    {
+
+    port= stringToLong(dimmer);
+    dimmer +="#";
+    //Serial.println(stringToArr(dimmer));
+    dimmer="";
+
     }
-    if((sol) < (500)){
-        digitalWrite(2,1);
-        _delay(1);
-        digitalWrite(2,0);
-        _delay(1);
+
+    if (data == '.')
+    {
+      analogWrite(port, dimmer.toInt());
+      dimmer +="#";
+      //Serial.println(stringToArr(dimmer));
+      dimmer = "";
+
     }
-    _delay(1);
+    if (data == '@')
+    {
 
-    _loop();
-}
+    a0 = analogRead(0);
+    a1 = analogRead(1);
+    a2 = analogRead(2);
+    a3 = analogRead(3);
 
-void _delay(float seconds){
-    long endTime = millis() + seconds * 1000;
-    while(millis() < endTime)_loop();
-}
+    Serial.print(a0);
+    Serial.print(";");
+    Serial.print(a1);
+    Serial.print(";");
+    Serial.print(a2);
+    Serial.print(";");
+    Serial.println(a3);
+    //Serial.println("#");
 
-void _loop(){
 
-}
+    dimmer="";
+    }
+  }
+ }
+
