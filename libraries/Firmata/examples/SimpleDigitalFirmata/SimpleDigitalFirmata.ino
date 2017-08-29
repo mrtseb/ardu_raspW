@@ -3,7 +3,7 @@
  * from software on a host computer. It is intended to work with
  * any host computer software package.
  *
- * To download a host software package, please clink on the following link
+ * To download a host software package, please click on the following link
  * to open the download page in your default browser.
  *
  * http://firmata.org/wiki/Download
@@ -52,7 +52,7 @@ void digitalWriteCallback(byte port, int value)
 
 void setup()
 {
-  Firmata.setFirmwareVersion(FIRMATA_MAJOR_VERSION, FIRMATA_MINOR_VERSION);
+  Firmata.setFirmwareVersion(FIRMATA_FIRMWARE_MAJOR_VERSION, FIRMATA_FIRMWARE_MINOR_VERSION);
   Firmata.attach(DIGITAL_MESSAGE, digitalWriteCallback);
   Firmata.attach(SET_PIN_MODE, setPinModeCallback);
   Firmata.begin(57600);

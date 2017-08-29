@@ -1,3 +1,92 @@
+FIRMATA 2.5.4 - Oct 23, 2016
+
+[core library]
+* Added Teensy 3.5 and 3.6 to Boards.h
+* Assign blinkVersionDisabled in constructor to fix compiler issue in Arduino 1.0.6
+
+[StandardFirmata & variants]
+* Only disable PWM when setting pinMode to OUTPUT if pinMode was previously PWM
+* Forward declare some functions to fix compiler issues with older IDE versions
+
+FIRMATA 2.5.3 - Jun 18, 2016
+
+[core library]
+* Added ESP8266 support (Jens B. & Jacob Rosenthal)
+* Added host connection callback (Jens B.)
+* Added Wi-Fi TCP client (Jens B.)
+* Added BLE transport (BLEStream based on BLESerial by Volta Molda)
+* Fixed Arduino Galileo and Edison compile issues
+
+[StandardFirmata & variants]
+* Added StandardFirmataBLE (for use with Arduino 101)
+* Added ability to choose between Wi-Fi TCP client or server (Jens B.)
+* Various updates to StandardFirmataWiFi (Jens B.)
+* Increased I2C RX data buffer from 32 to 64 bytes (Rick Waldron)
+* Removed StandardFirmataEthernetPlus
+* Made StandardFirmataEtherent configurable (to optionally add Plus functionality)
+* Improved configuration instructions for StandardFirmataEthernet and StandardFirmataWiFi
+
+FIRMATA 2.5.2 - Feb 15, 2016
+
+[core library]
+* Added Wi-Fi transport (Jesse Frush)
+* Added support for Arduino MKR1000 (Jesse Frush)
+* Moved Serial feature to own class SerialFirmata
+* Moved pin config and pin state handling to Firmata.cpp
+* Added new method disableBlinkVersion to provide a way to optionally bypass startup blink sequence
+
+[StandardFirmata & variants]
+* Added StandardFirmataWiFi (Jesse Frush)
+* Added ethernetConfig.h for StandardFirmataEthernet and StandardFirmtaEthernetPlus
+* Removed serialUtils.h and using SerialFirmata class instead for Serial feature
+
+FIRMATA 2.5.1 - Dec 26, 2015
+
+[core library]
+* Added support for Arduino 101
+* Make VERSION_BLINK_PIN optional
+* Separate protocol version from firmware version.
+  Use FIRMATA_PROTOCOL_VERSION_[MAJOR/MINOR/BUGFIX] for protocol and use
+  FIRMATA_FIRMWARE_VERSION_[MAJOR/MINOR/BUGFIX] for firmware (library version).
+
+[StandardFirmata & variants]
+* Added ability to auto-restart I2C transmission by setting bit 6 of byte 3
+  of the I2C_REQUEST message.
+
+FIRMATA 2.5.0 - Nov 7, 2015
+
+[core library]
+* Added Serial feature for interfacing with serial devices via hardware
+  or software serial. See github.com/firmata/protocol/serial.md for details
+* Added ability to set the value of a pin by sending a single value instead
+  of a port value. See 'set digital pin value' in github.com/firmata/protocol/protocol.md
+  for details
+* Added support for Arduino Zero board
+* Added support for Teensy LC board (copied from Teensy Firmata lib)
+* Added support for Pinoccio Scout board (Pawel Szymczykowski)
+* Lowered minimun sampling interval from 10 to 1 millisecond
+* Added new pin mode (PIN_MODE_PULLUP) for setting the INPUT_PULLUP pin mode
+* Changed pin mode defines to safer names (old names still included but
+  deprecated) - see Firmata.h
+
+[StandardFirmata & variants]
+* Created new StandardFirmataPlus that implements the Serial feature
+  Note: The new Serial features is only implemented in the "Plus" versions of
+  StandardFirmata.
+* Created new StandardFirmataEthernetPlus that implements the Serial feature
+* Fixed issue where StandardFirmata was not compiling for Intel Galileo boards
+* Moved StandardFirmataYun to its own repo (github.com/firmata/StandardFirmataYun)
+
+FIRMATA 2.4.4 - Aug 9, 2015
+
+[core library]
+* Added support for chipKIT boards (Brian Schmalz, Rick Anderson and Keith Vogel)
+* Added support for ATmega328 boards (previously only ATmega328p was supported)
+
+[StandardFirmata]
+* Added StandardFirmataChipKIT for ChipKIT boards (Brian Schmalz, Rick Anderson and Keith Vogel)
+* Ensure Serial is ready on Leonardo and other ATMega32u4-based boards
+
 FIRMATA 2.4.3 - Apr 11, 2015
 
 [core library]

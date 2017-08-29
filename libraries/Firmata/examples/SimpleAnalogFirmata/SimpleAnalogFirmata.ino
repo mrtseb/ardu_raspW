@@ -3,7 +3,7 @@
  * from software on a host computer. It is intended to work with
  * any host computer software package.
  *
- * To download a host software package, please clink on the following link
+ * To download a host software package, please click on the following link
  * to open the download page in your default browser.
  *
  * http://firmata.org/wiki/Download
@@ -27,7 +27,7 @@ void analogWriteCallback(byte pin, int value)
 
 void setup()
 {
-  Firmata.setFirmwareVersion(FIRMATA_MAJOR_VERSION, FIRMATA_MINOR_VERSION);
+  Firmata.setFirmwareVersion(FIRMATA_FIRMWARE_MAJOR_VERSION, FIRMATA_FIRMWARE_MINOR_VERSION);
   Firmata.attach(ANALOG_MESSAGE, analogWriteCallback);
   Firmata.begin(57600);
 }

@@ -35,19 +35,26 @@
 class TembooChoreo : public Process {
 
     public:
-        void begin();
-        void setAccountName(const String& accountName);
-        void setAppKeyName(const String& appKeyName);
-        void setAppKey(const String& appKey);
-        void setChoreo(const String& choreo);
-        void setCredential(const String& credentialName);
-        void setSavedInputs(const String& saveInputsName);
-        void setProfile(const String& profileName);
-        void addInput(const String& inputName, const String& inputValue);
-        void addOutputFilter(const String& filterName, const String& filterPath, const String& variableName);
-        void setSettingsFileToWrite(const String& filePath);
-        void setSettingsFileToRead(const String& filePath);
-
+    void begin() {Process::begin("temboo");}
+    void setAccountName(const String& accountName) { addParameter("-a" + accountName);}
+    void setAppKeyName(const String& appKeyName) { addParameter("-u" + appKeyName);}
+    void setAppKey(const String& appKey) { addParameter("-p" + appKey);}
+    void setChoreo(const String& choreo) { addParameter("-c" + choreo);}
+    void setCredential(const String& credentialName) { addParameter("-e" + credentialName);}
+    void setSavedInputs(const String& savedInputsName) { addParameter("-e" + savedInputsName);}
+    void setProfile(const String& profileName) { addParameter("-e" + profileName);}
+    void addInput(const String& inputName, const String& inputValue) { addParameter("-i" + inputName + ":" + inputValue);}
+    void addOutputFilter(const String& filterName, const String& filterPath, const String& variableName) { addParameter("-o" + filterName + ":" + filterPath + ":" + variableName);}
+    void setSettingsFileToWrite(const String& filePath) { addParameter("-w" + filePath);}
+    void setSettingsFileToRead(const String& filePath) { addParameter("-r" + filePath);}
+    void setGatewayAddress(const String& addr) { addParameter("-s" + addr);}
+    void addInputExpression(const String& inputName, const String& inputValue) { addParameter("-f" + inputName + ":" + inputValue);}
+    void addSensorInput(const String& sensorName, long sensorValue, const String& conversion) {addParameter("-n" + sensorName + ":" + String(sensorValue) + ":" + conversion);}
+    void addSensorInput(const String& sensorName, long sensorValue) {addParameter("-v" + sensorName + ":" + String(sensorValue));}
+    void addSensorInput(const String& sensorName, long sensorValue, const String& conversion, const String& calibrationValue) {addParameter("-b" + sensorName + ":" + String(sensorValue) + ":" + conversion + ":" + calibrationValue);}
+    void addSensorInput(const String& sensorName, long sensorValue, const String& rawLow, const String& rawHigh, const String& scaleLow, const String& scaleHigh) {addParameter("-m" + sensorName + ":" + String(sensorValue) + ":" + rawLow+ ":" + rawHigh+ ":" + scaleLow+ ":" + scaleHigh);}
+    void setDeviceName(const String& deviceName) {addParameter("-d" + deviceName);}
+    void setDeviceType(const String& deviceType) {addParameter("-t" + deviceType);}
 };
 
 #else //ARDUINO_AVR_YUN
@@ -134,10 +141,11 @@ class TembooChoreo : public Stream {
        
         // run the choreo using the current input info
         int run();
-
-        // run the choreo on the Temboo server at the given IP address and port
-        // (used only when instructed by Temboo customer support.)
+        // run the choreo with a user specified timeout
         int run(uint16_t timeoutSecs);
+    
+        // run the choreo on the Temboo server at the given IP address and port
+        int run(IPAddress addr, uint16_t port);
         int run(IPAddress addr, uint16_t port, uint16_t timeoutSecs);
 
         void close();

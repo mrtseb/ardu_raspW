@@ -6,6 +6,5 @@ del /s /q *.log
 del /s /q *.ppu
 del /s /q *.bak
 del /s /q *.obj
-del /s /q *.o
 strip.exe SerialReader1.exe
 strip.exe MrTArduino1.exe

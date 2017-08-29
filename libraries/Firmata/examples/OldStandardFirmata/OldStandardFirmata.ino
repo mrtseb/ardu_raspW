@@ -3,7 +3,7 @@
  * from software on a host computer. It is intended to work with
  * any host computer software package.
  *
- * To download a host software package, please clink on the following link
+ * To download a host software package, please click on the following link
  * to open the download page in your default browser.
  *
  * http://firmata.org/wiki/Download
@@ -122,7 +122,7 @@ void setPinModeCallback(byte pin, int mode) {
 
 void analogWriteCallback(byte pin, int value)
 {
-  setPinModeCallback(pin, PWM);
+  setPinModeCallback(pin, PIN_MODE_PWM);
   analogWrite(pin, value);
 }
 
